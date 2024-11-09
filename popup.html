@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Summary Agent</title>
+        <link rel="stylesheet" href="./popup.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    </head>
+    <body class="body">
+        <header class="title-container">
+            <h1 class="summary-title">Summary Agent</h1>
+            <div 
+                role="button" 
+                tabindex="0" 
+                class="help-icon" 
+                title="Extension description" 
+                aria-describedby="help-description" 
+                aria-label="Extension description"
+            >?</div>
+            <div class="help-description" id="help-description">
+                This app summarizes text in html or PDF files.
+                In html (but not in PDF) you can select text which you would like to summarize.
+                If no text is selected summarize will work for the whole page.
+                If you see "No active tab" error - click on the current tab to select it and then summarize.
+            </div>
+        </header>
+        <main>
+            <div class="button-container">
+                <button autofocus id="summarize" class="button summarize-button">Summarize</button>
+                <button id="voice-over" class="button voice-over-button">Voice over</button>
+            </div>
+            <div class="select-container">
+                <select title="Summary length" name="lengths" id="summary-length">
+                    <option value="short">short</option>
+                    <option value="medium">medium</option>
+                    <option value="long">long</option>
+                </select>
+                <select title="Summary type" name="summary-types" id="summary-type">
+                    <option value="tl;dr">tl;dr</option>
+                    <option value="key-points">key-points</option>
+                    <option value="teaser">teaser</option>
+                    <option value="headline">headline</option>
+                </select>
+                <select title="Summary language" name="summary-languages" id="summary-language">
+                    <option value="en">en</option>
+                    <option value="fr">fr</option>
+                    <option value="ja">ja</option>
+                </select>
+            </div>
+            <p id="summary"></p>
+            <div class="loader" title="Loading...">
+                <div class="loader-emoji">&#128131;</div>
+                <div>Loading...</div>
+            </div>
+            <div tabindex="0" role="button" aria-label="Copy summary" title="Copy" class="copy-button">
+                &#x1F5D0;
+            </div>
+        </main>
+        <script src="./dist/popup.js"></script>
+    </body>
+</html>

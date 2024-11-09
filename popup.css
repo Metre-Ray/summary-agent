@@ -1,0 +1,131 @@
+html {
+    box-shadow: 0 0 5px black;
+}
+
+.body {
+    width: 500px;
+    padding: 5px;
+}
+
+#summary {
+    font-size: 14px;
+}
+
+.button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    font-size: 18px;
+    border-radius: 5px;
+    color: white;
+}
+
+.summarize-button {
+    background-color: #000a75;
+}
+
+.voice-over-button {
+    background-color: #00946f;
+}
+
+.summarize-button:hover {
+    box-shadow: 0px 0px 1px 5px rgb(148, 148, 255);
+}
+
+.summarize-button:focus {
+    box-shadow: 0px 0px 1px 5px rgb(148, 148, 255);
+}
+
+.voice-over-button:hover {
+    box-shadow: 0px 0px 1px 5px rgb(148, 255, 194);
+}
+
+.voice-over-button:focus {
+    box-shadow: 0px 0px 1px 5px rgb(148, 255, 194);
+}
+
+.button-container {
+    display: flex;
+    gap: 20px;
+}
+
+.copy-button {
+    display: inline-block;
+    padding: 5px;
+    margin-left: 95%;
+    border: 1px solid #00946f;
+    cursor: pointer;
+}
+
+.copy-button.copied {
+    background-color: rgb(148, 255, 194);
+}
+
+#summary-length {
+    margin-left: 428px;
+}
+
+.summary-title {
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: "Raleway", sans-serif;
+    text-align: center;
+}
+
+.loader {
+    display: none;
+    font-size: 20px;
+    text-align: center;
+}
+
+.loader.visible {
+    display: block;
+}
+
+.loader-emoji {
+    font-size: 26px;
+}
+
+.select-container {
+    display: flex;
+    gap: 5px;
+    justify-content: end;
+    margin-top: 10px;
+}
+
+.help-icon {
+    width: 10px;
+    height: 10px;
+    line-height: 10px;
+    padding: 5px;
+    border: 1px solid #000a75;
+    border-radius: 50%;
+    font-weight: bold;
+    color: #000a75;
+    text-align: center;
+    cursor: default;
+}
+
+.help-icon:hover + .help-description {
+    visibility: visible;
+}
+
+.help-icon:focus + .help-description {
+    visibility: visible;
+}
+
+.help-description {
+    visibility: hidden;
+    position: absolute;
+    right: 5px;
+    top: 35px;
+    padding: 10px;
+    background-color: white;
+    box-shadow: 0 0 5px black;
+}
+
+.title-container {
+    display: flex;
+    justify-content: space-between;
+}

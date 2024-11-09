@@ -1,0 +1,28 @@
+{
+    "manifest_version": 3,
+    "name": "Summary Agent",
+    "version": "1.0",
+    "description": "Summarize content of webpages and PDFs.",
+    "permissions": ["activeTab", "scripting", "storage", "contextMenus"],
+    "host_permissions": ["<all_urls>"],
+    "background": {
+      "service_worker": "background.js",
+      "type": "module"
+    },
+    "action": {
+      "default_popup": "popup.html"
+    },
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["content.js"]
+      }
+    ],
+    "icons": {
+        "16": "list-solid.png",
+        "32": "list-solid.png",
+        "48": "list-solid.png",
+        "128": "list-solid.png"
+    },
+    "options_page": "popup.html"
+}
