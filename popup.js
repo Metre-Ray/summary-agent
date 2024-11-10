@@ -1,14 +1,16 @@
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';
 
+let mode = 'website-page';
 
 document.getElementById('summarize').addEventListener('click', async () => {
     document.querySelector('.loader').classList.add('visible');
     document.getElementById('summary').innerHTML = '';
     const length = document.getElementById('summary-length').value;
     const summaryType = document.getElementById('summary-type').value;
+    const data = mode === 'website-page' ? null : document.getElementById('custom-text-input').value;
 
-    chrome.runtime.sendMessage({ action: 'summarize', length, summaryType }, async (response) => {
+    chrome.runtime.sendMessage({ action: 'summarize', length, summaryType, data }, async (response) => {
         const lang = document.getElementById('summary-language').value;
         chrome.storage.local.set({ summaryLang: lang });
         if (lang !== 'en') {
@@ -40,7 +42,25 @@ document.querySelector('.copy-button').addEventListener('click', () => {
     setTimeout(() => {
         button.classList.remove('copied');
     }, 2000);
-})
+});
+
+document.getElementById('website-page-option').addEventListener('click', async () => {
+    mode = 'website-page';
+    document.getElementById('website-page-option').classList.add('selected');
+    document.getElementById('custom-text-option').classList.remove('selected');
+    document.getElementById('custom-text-input').classList.add('hidden');
+});
+
+document.getElementById('custom-text-option').addEventListener('click', async () => {
+    mode = 'custom-text'
+    document.getElementById('custom-text-option').classList.add('selected');
+    document.getElementById('website-page-option').classList.remove('selected');
+    document.getElementById('custom-text-input').classList.remove('hidden');
+});
+
+
+
+
 
 chrome.storage.local.get(["length"]).then((result) => {
     document.getElementById('summary-length').value = result.length || 'short';

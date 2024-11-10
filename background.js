@@ -3,7 +3,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         chrome.tabs.query({ active: true, lastFocusedWindow: true }, async (tabs) => {
             try {
                 const tab = tabs[0];
-                if (!tab) {
+                if (!tab && !request.data) {
                     sendResponse({ summary: 'No active tab selected. Please select an active tab' });
                     return;
                 }
@@ -11,10 +11,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                 chrome.storage.local.set({ length: request.length });
                 chrome.storage.local.set({ summaryType: request.summaryType });
 
-                const url = tab.url;
+                const url = tab?.url;
                 let content = null;
     
-                const isPdf = url.endsWith('.pdf');
+                const isPdf = url?.endsWith('.pdf') && !request.data;
                 if (isPdf) {
                     const response = await fetch(url);
                     const fileBlob = await response.blob();
@@ -41,13 +41,13 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                         const summary = await summarizeText(r2.data, request.length, request.summaryType);
                         sendResponse({ summary });
                 } else {
-                    content = await chrome.scripting.executeScript({
+                    content = request.data ? request.data : await chrome.scripting.executeScript({
                         target: { tabId: tab.id },
                         func: extractTextContent
                     });
 
                     try {
-                        let summary = await summarizeText(content[0]?.result, request.length, request.summaryType);
+                        let summary = await summarizeText(request.data ? content : content[0]?.result, request.length, request.summaryType);
                         sendResponse({ summary });
                     } catch (err) {
                         console.log('Error in ai summarizer: ', err);
@@ -71,4 +71,8 @@ async function summarizeText(text, length, type) {
     });
     const summary = await summarizer.summarize(text);
     return summary;
+}
+
+function extractTextContent() {
+    return window.getSelection().toString() || document.body.textContent;
 }

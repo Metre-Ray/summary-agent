@@ -8,6 +8,10 @@
         <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     </head>
     <body class="body">
+        <nav class="modes-container">
+            <div id="website-page-option" tabindex="0" role="button" class="mode selected">Website page</div>
+            <div id="custom-text-option" tabindex="0" role="button" class="mode">Custom text</div>
+        </nav>
         <header class="title-container">
             <h1 class="summary-title">Summary Agent</h1>
             <div 
@@ -48,6 +52,15 @@
                     <option value="ja">ja</option>
                 </select>
             </div>
+            <textarea 
+                id="custom-text-input" 
+                class="hidden"
+                name="custom-text" 
+                aria-label="Enter the text which you would like to summarize"
+                placeholder="Enter text"
+                rows="10"
+                cols="60"
+            ></textarea>
             <p id="summary"></p>
             <div class="loader" title="Loading...">
                 <div class="loader-emoji">&#128131;</div>

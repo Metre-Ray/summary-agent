@@ -107,11 +107,7 @@ html {
     cursor: default;
 }
 
-.help-icon:hover + .help-description {
-    visibility: visible;
-}
-
-.help-icon:focus + .help-description {
+.help-icon:hover + .help-description, .help-icon:focus + .help-description  {
     visibility: visible;
 }
 
@@ -119,7 +115,7 @@ html {
     visibility: hidden;
     position: absolute;
     right: 5px;
-    top: 35px;
+    top: 80px;
     padding: 10px;
     background-color: white;
     box-shadow: 0 0 5px black;
@@ -128,4 +124,31 @@ html {
 .title-container {
     display: flex;
     justify-content: space-between;
+}
+
+.modes-container {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+#custom-text-input {
+    margin-top: 10px;
+}
+
+#custom-text-input.hidden {
+    display: none;
+}
+
+.mode {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.mode.selected {
+    box-shadow: 0px 0px 1px 5px rgb(148, 148, 255);
+}
+
+.mode:hover, .mode:focus {
+    box-shadow: 0px 0px 1px 5px rgb(148, 148, 255);
 }
