@@ -16,38 +16,24 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     
                 const isPdf = url?.endsWith('.pdf') && !request.data;
                 if (isPdf) {
-                    const response = await fetch(url);
-                    const fileBlob = await response.blob();
-    
-                    const formData = new FormData();
-                    formData.append("file", fileBlob, "file.pdf");
-                    const config = {
-                        method: 'POST',
-                        headers: { 
-                            'apy-token': process.env.PDF_API_KEY, 
-                        },
-                        body: formData,
-                    };
-    
-                    let r2 = null;
+                    let pdfData = null;
                     try {
-                        const r = await fetch('https://api.apyhub.com/extract/text/pdf-file', config);
-                        r2 = await r.json();
+                        pdfData = await extractPdfText(url);
                     } catch (e) {
-                        sendResponse({ summary: 'Error occurred in API' });
-                        console.log('fetch err', e);
+                        sendResponse({ summary: 'Error occurred in PDF API' });
+                        console.log('fetch error', e);
                         return;
                     }
-                        const summary = await summarizeText(r2.data, request.length, request.summaryType);
-                        sendResponse({ summary });
+                    const summary = await summarizeText(pdfData, request.length, request.summaryType);
+                    sendResponse({ summary });
                 } else {
-                    content = request.data ? request.data : await chrome.scripting.executeScript({
+                    content = request.data ? request.data : (await chrome.scripting.executeScript({
                         target: { tabId: tab.id },
                         func: extractTextContent
-                    });
+                    }))[0]?.result;
 
                     try {
-                        let summary = await summarizeText(request.data ? content : content[0]?.result, request.length, request.summaryType);
+                        let summary = await summarizeText(content, request.length, request.summaryType);
                         sendResponse({ summary });
                     } catch (err) {
                         console.log('Error in ai summarizer: ', err);
@@ -62,6 +48,27 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
     return true;
 });
+
+async function extractPdfText(url) {
+    const response = await fetch(url);
+    const fileBlob = await response.blob();
+
+    const formData = new FormData();
+    formData.append("file", fileBlob, "file.pdf");
+    const config = {
+        method: 'POST',
+        headers: { 
+            'apy-token': process.env.PDF_API_KEY, 
+        },
+        body: formData,
+    };
+
+    let r2 = null;
+    const r = await fetch('https://api.apyhub.com/extract/text/pdf-file', config);
+    r2 = await r.json();
+
+    return r2.data
+}
 
 async function summarizeText(text, length, type) {
     const summarizer = await ai.summarizer.create({
