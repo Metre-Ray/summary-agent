@@ -9,9 +9,10 @@ FOr PDF files API key is required for text extraction.
             
 ## How to run
 
+- download the repository
 - run `npm i`
 - run `npm run build`
-- unpack extension in Google Chrome browser
+- unpack extension in Google Chrome browser: got to chrome://extensions/, select "Load unpacked" and select folder with the extension
 
 ## Additional info
 

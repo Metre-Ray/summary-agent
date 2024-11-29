@@ -31,6 +31,16 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                         target: { tabId: tab.id },
                         func: extractTextContent
                     }))[0]?.result;
+                    // console.log('before translate', content)
+                    // content = await translateToEnglish(content);
+                    // console.log('after trnslate', content)
+                    // const links = content = request.data ? null : (await chrome.scripting.executeScript({
+                    //     target: { tabId: tab.id },
+                    //     func: extractLinks,
+                    // }))[0]?.result;
+
+                    // const detector = await ai.languageDetector.create();
+                    // const resultLang = await detector.detect(someUserText);
 
                     try {
                         let summary = await summarizeText(content, request.length, request.summaryType);
@@ -48,6 +58,25 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
     return true;
 });
+
+// chrome.runtime.onInstalled.addListener(() => {
+//     chrome.contextMenus.create({
+//         id: "open-extension",
+//         title: "Open Extension", // The text shown in the context menu
+//         contexts: ["all"], // Show on all contexts (pages, images, links, etc.)
+//     });
+// });
+
+// chrome.contextMenus.onClicked.addListener((info, tab) => {
+//     if (info.menuItemId === "open-extension") {
+//         chrome.windows.create({
+//             url: chrome.runtime.getURL("popup.html"),
+//             type: "popup",
+//             width: 400,
+//             height: 600,
+//         });
+//     }
+// });
 
 async function extractPdfText(url) {
     const response = await fetch(url);
@@ -83,3 +112,23 @@ async function summarizeText(text, length, type) {
 function extractTextContent() {
     return window.getSelection().toString() || document.body.textContent;
 }
+
+async function translateToEnglish(text) {
+    const detector = await ai.languageDetector.create();
+    const resultLang = (await detector.detect(text?.substr(0, 10)))[0]?.detectedLanguage;
+    console.log('after detect language', resultLang)
+    const langPair = {
+        sourceLanguage: resultLang,
+        targetLanguage: 'en',
+    };
+    if (resultLang === 'en') {
+        return text;
+    }
+    const translatorObj = await window.translation.createTranslator(langPair);
+    const translationText = await translatorObj.translate(text);
+    return translationText;
+}
+
+// function extractLinks() {
+//     return Array(document.body.querySelectorAll('a'));
+// }

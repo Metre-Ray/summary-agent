@@ -2,9 +2,8 @@
     "manifest_version": 3,
     "name": "Summary Agent",
     "version": "1.0",
-    "description": "Summarize content of webpages and PDFs.",
-    "permissions": ["activeTab", "scripting", "storage", "contextMenus"],
-    "host_permissions": ["<all_urls>"],
+    "description": "Summarize content of webpages",
+    "permissions": ["activeTab", "scripting", "storage"],
     "background": {
       "service_worker": "./dist/background.js",
       "type": "module"

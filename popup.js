@@ -24,6 +24,10 @@ document.querySelector('.copy-button').addEventListener('click', () => {
     copySummaryToClipboard();
 });
 
+document.querySelector('.share-button').addEventListener('click', () => {
+    shareSummary();
+});
+
 document.getElementById('website-page-option').addEventListener('click', async () => {
     mode = WEBSITE_PAGE_MODE;
     document.getElementById('website-page-option').classList.add('selected');
@@ -95,4 +99,9 @@ async function setSummary(response) {
     document.querySelector('.loader').classList.remove('visible');
     const cleanHTML = DOMPurify.sanitize(marked.parse(response.summary));
     document.getElementById('summary').innerHTML = cleanHTML || 'Summary failed';
+}
+
+function shareSummary() {
+    const text = document.getElementById('summary').innerText;
+    window.navigator.share({ text });
 }
