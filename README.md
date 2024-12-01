@@ -20,6 +20,7 @@ For PDF files API key is required for text extraction.
 The app is built with usage of Summarizer API and Translation API.
 
 NOTE: For PDF text extraction external API is used https://api.apyhub.com/extract/text/pdf-file. API KEY is required for this API.
+Create .env file and put api key in PDF_API_KEY variable in this file.
 
 ## Attribution
 

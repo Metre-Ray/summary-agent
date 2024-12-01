@@ -1,3 +1,11 @@
+:root {
+    --primary-color: #000a75;
+    --secondary-color: rgb(148, 148, 255);
+    --disabled-color: grey;
+    --voice-over-color: #00946f;
+    --voice-over-hover-color: rgb(148, 255, 194);
+}
+
 html {
     box-shadow: 0 0 5px black;
 }
@@ -21,27 +29,27 @@ html {
 }
 
 .summarize-button {
-    background-color: #000a75;
+    background-color: var(--primary-color);
 }
 
 .voice-over-button {
-    background-color: #00946f;
+    background-color: var(--voice-over-color);
 }
 
 .summarize-button:hover {
-    box-shadow: 0px 0px 1px 5px rgb(148, 148, 255);
+    box-shadow: 0px 0px 1px 5px var(--secondary-color);
 }
 
 .summarize-button:focus {
-    box-shadow: 0px 0px 1px 5px rgb(148, 148, 255);
+    box-shadow: 0px 0px 1px 5px var(--secondary-color);
 }
 
 .voice-over-button:hover {
-    box-shadow: 0px 0px 1px 5px rgb(148, 255, 194);
+    box-shadow: 0px 0px 1px 5px var(--voice-over-hover-color);
 }
 
 .voice-over-button:focus {
-    box-shadow: 0px 0px 1px 5px rgb(148, 255, 194);
+    box-shadow: 0px 0px 1px 5px var(--voice-over-hover-color);
 }
 
 .button-container {
@@ -104,10 +112,10 @@ html {
     height: 10px;
     line-height: 10px;
     padding: 5px;
-    border: 1px solid #000a75;
+    border: 1px solid var(--primary-color);
     border-radius: 50%;
     font-weight: bold;
-    color: #000a75;
+    color: var(--primary-color);
     text-align: center;
     cursor: default;
 }
@@ -151,15 +159,20 @@ html {
 }
 
 .mode.selected {
-    box-shadow: 0px 0px 1px 5px rgb(148, 148, 255);
+    box-shadow: 0px 0px 1px 5px var(--secondary-color);
 }
 
 .mode:hover, .mode:focus {
-    box-shadow: 0px 0px 1px 5px rgb(148, 148, 255);
+    box-shadow: 0px 0px 1px 5px var(--secondary-color);
 }
 
 .share-image {
     width: 23px;
     height: 23px;
     cursor: pointer;
+}
+
+#website-page-option.disabled {
+    pointer-events: none;
+    color: var(--disabled-color);
 }

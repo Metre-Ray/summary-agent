@@ -3,7 +3,7 @@
     "name": "Summary Agent",
     "version": "1.0",
     "description": "Summarize content of webpages",
-    "permissions": ["activeTab", "scripting", "storage"],
+    "permissions": ["activeTab", "scripting", "storage", "contextMenus"],
     "background": {
       "service_worker": "./dist/background.js",
       "type": "module"

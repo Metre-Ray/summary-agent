@@ -58,6 +58,19 @@ chrome.storage.local.get(["summaryLang"]).then((result) => {
 
 
 
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.action === "sendText") {
+        const selectedText = request.text;
+        document.getElementById('custom-text-option').click();
+        document.getElementById("custom-text-input").value = selectedText;
+        document.getElementById('summarize').click();
+        document.getElementById('website-page-option').classList.add('disabled');
+    }
+});
+
+
+
+
 async function translateFromEnglish(text, lang) {
     const langPair = {
         sourceLanguage: "en",
@@ -69,7 +82,8 @@ async function translateFromEnglish(text, lang) {
 }
 
 function voiceOver() {
-    const summary = document.getElementById('summary').textContent || 'No summary present';
+    const loaderText = document.getElementById('loader').classList.contains('visible') && document.getElementById('loader').innerText;
+    const summary = document.getElementById('summary').textContent || loaderText || 'No summary present';
     const utterance = new SpeechSynthesisUtterance(summary);
     speechSynthesis.speak(utterance);
 }

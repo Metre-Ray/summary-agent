@@ -31,16 +31,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                         target: { tabId: tab.id },
                         func: extractTextContent
                     }))[0]?.result;
-                    // console.log('before translate', content)
-                    // content = await translateToEnglish(content);
-                    // console.log('after trnslate', content)
-                    // const links = content = request.data ? null : (await chrome.scripting.executeScript({
-                    //     target: { tabId: tab.id },
-                    //     func: extractLinks,
-                    // }))[0]?.result;
-
-                    // const detector = await ai.languageDetector.create();
-                    // const resultLang = await detector.detect(someUserText);
 
                     try {
                         let summary = await summarizeText(content, request.length, request.summaryType);
@@ -59,24 +49,32 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     return true;
 });
 
-// chrome.runtime.onInstalled.addListener(() => {
-//     chrome.contextMenus.create({
-//         id: "open-extension",
-//         title: "Open Extension", // The text shown in the context menu
-//         contexts: ["all"], // Show on all contexts (pages, images, links, etc.)
-//     });
-// });
+chrome.runtime.onInstalled.addListener(() => {
+    chrome.contextMenus.create({
+        id: "sendToExtension",
+        title: "Summarize",
+        contexts: ["selection"],
+    });
+});
 
-// chrome.contextMenus.onClicked.addListener((info, tab) => {
-//     if (info.menuItemId === "open-extension") {
-//         chrome.windows.create({
-//             url: chrome.runtime.getURL("popup.html"),
-//             type: "popup",
-//             width: 400,
-//             height: 600,
-//         });
-//     }
-// });
+chrome.contextMenus.onClicked.addListener((info, tab) => {
+    if (info.menuItemId === "sendToExtension") {
+        const selectedText = info.selectionText;
+        chrome.windows.create(
+            {
+                url: chrome.runtime.getURL("popup.html"),
+                type: "popup",
+                width: 600,
+                height: 600,
+            },
+            () => {
+                setTimeout(() => {
+                    chrome.runtime.sendMessage({ action: "sendText", text: selectedText })
+                }, 1000);
+            }
+        );
+    }
+});
 
 async function extractPdfText(url) {
     const response = await fetch(url);
