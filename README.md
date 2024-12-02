@@ -15,6 +15,20 @@ For PDF files API key is required for text extraction.
 - unpack extension in Google Chrome browser: go to chrome://extensions/, select "Load unpacked" and select folder with the extension
 - extension is ready to use
 
+## Features
+
+- Summarization of the text from a webpage
+- Summarization of the custom text
+- Ability to change summary settings (length, type, language)
+- Opening extension from the context menu (when text is selected on web page)
+- Voice over of the summary
+- Coping summary to the clipboard
+- Sharing summary through email/other channels
+
+## Known bugs
+
+Summarization of the whole page gives error in AI summarizer (NotSupportedError or NotReadableError)
+
 ## Additional info
 
 The app is built with usage of Summarizer API and Translation API.
