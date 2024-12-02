@@ -39,3 +39,5 @@ Create .env file and put api key in PDF_API_KEY variable in this file.
 ## Attribution
 
 Extension logo is taken from https://www.freepik.com.
+
+Share icon is taken from https://icons8.com/icon/98959/share.

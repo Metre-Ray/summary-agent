@@ -6,6 +6,7 @@ let mode = WEBSITE_PAGE_MODE;
 
 document.getElementById('summarize').addEventListener('click', async () => {
     document.querySelector('.loader').classList.add('visible');
+    // document.getElementById('keywords').innerHTML = 'Loading...';
     document.getElementById('summary').innerHTML = '';
     const length = document.getElementById('summary-length').value;
     const summaryType = document.getElementById('summary-type').value;
@@ -42,6 +43,9 @@ document.getElementById('custom-text-option').addEventListener('click', async ()
     document.getElementById('custom-text-input').classList.remove('hidden');
 });
 
+document.getElementById('close-icon').addEventListener('click', () => {
+    window.close();
+});
 
 
 
@@ -66,6 +70,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         document.getElementById('summarize').click();
         document.getElementById('website-page-option').classList.add('disabled');
     }
+    // if (request.action === 'keywords') {
+    //     document.getElementById('keywords').innerHTML = request.keywords;
+    // }
 });
 
 
@@ -96,7 +103,7 @@ function copySummaryToClipboard() {
     button.classList.add('copied');
     setTimeout(() => {
         button.classList.remove('copied');
-    }, 2000);
+    }, 1500);
 }
 
 async function setSummary(response) {
