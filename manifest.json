@@ -11,12 +11,7 @@
     "action": {
       "default_popup": "popup.html"
     },
-    "content_scripts": [
-      {
-        "matches": ["<all_urls>"],
-        "js": ["content.js"]
-      }
-    ],
+    "content_scripts": [],
     "icons": {
         "16": "list-solid.png",
         "32": "list-solid.png",
