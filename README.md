@@ -13,7 +13,7 @@ For PDF files API key is required for text extraction.
 - run `npm i`
 - run `npm run build`
 - unpack extension in Google Chrome browser: go to chrome://extensions/, select "Load unpacked" and select folder with the extension
-- extension is ready to use
+- extension is ready to (in Chrome Canary with Summarization API and Translation API experimental features turned on)
 
 ## Features
 
@@ -27,7 +27,9 @@ For PDF files API key is required for text extraction.
 
 ## Known bugs
 
-Summarization of the whole page gives error in AI summarizer (NotSupportedError or NotReadableError)
+For now Summarization API is not able to process large chunks of text and chunking long text into smaller chunks gives very long waiting times.
+Thus summarization of the whole page for now gives error in AI summarizer (NotSupportedError or NotReadableError).
+I beleive in the future API will improve and allow for summarization of long texts.
 
 ## Additional info
 
